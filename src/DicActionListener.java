@@ -65,8 +65,8 @@ public class DicActionListener extends UI {
     public void InitializeTranslator() {
         // TODO: 2016/11/23
         //read the votes from the database
-        t.add(new BaiduTranslate(0));
         t.add(new BingTranslate(0));
+        t.add(new JinshanTranslate(0));
         t.add(new YoudaoTranslate(0));
     }
 
