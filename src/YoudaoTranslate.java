@@ -1,3 +1,4 @@
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -13,7 +14,9 @@ public class YoudaoTranslate extends Translator {
         name="Youdao";
         this.votes=votes;
     }
-    public String getTranslation(String text) throws Exception{
+    public WORD getTranslation(String text) throws Exception{
+
+        //post request
         URL url=new URL("http://fanyi.youdao.com/openapi.do");
         HttpURLConnection connection=(HttpURLConnection) url.openConnection();
         connection.addRequestProperty("encoding","UTF-8");
@@ -36,7 +39,6 @@ public class YoudaoTranslate extends Translator {
         StringBuilder sb=new StringBuilder();
         while((line=br.readLine())!=null) {
             sb.append(line);
-            sb.append('\n');
         }
 
         bw.close();
@@ -46,11 +48,17 @@ public class YoudaoTranslate extends Translator {
         isr.close();
         is.close();
 
-        String jsonStr=sb.toString();
-        JSONObject jsonObj=(JSONObject)new JSONParser().parse(jsonStr);
-        if("0".equals(jsonObj.get("errorCode").toString())) {
-            jsonStr=jsonObj.get("translation").toString();
+        //resolve json
+        JSONObject jsonObj=(JSONObject)new JSONParser().parse(sb.toString());
+        JSONObject basic=(JSONObject)jsonObj.get("basic");
+        WORD wd=new WORD();
+        wd.word=text;
+        wd.usPhonetic=basic.get("us-phonetic").toString();
+        wd.ukPhonetic=basic.get("uk-phonetic").toString();
+        JSONArray explains=(JSONArray) basic.get("explains");
+        for(int i=0;i<explains.size();++i) {
+            wd.explains.add(explains.get(i).toString());
         }
-        return jsonStr.substring(2,jsonStr.length()-2);
+        return wd;
     }
 }

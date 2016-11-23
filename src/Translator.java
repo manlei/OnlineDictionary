@@ -19,5 +19,5 @@ public abstract class Translator implements Comparable {
         }
         return true;
     }
-    public abstract String getTranslation(String text)throws Exception;
+    public abstract WORD getTranslation(String text)throws Exception;
 }

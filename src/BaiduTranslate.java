@@ -6,9 +6,13 @@ public class BaiduTranslate extends Translator{
         name="Baidu";
         this.votes=votes;
     }
-    public String getTranslation(String text)throws Exception {
+    public WORD getTranslation(String text)throws Exception {
         // TODO: 2016/11/23
         // finish the function
-        return "";
+        WORD wd=new WORD();
+        wd.word=text;
+        wd.ukPhonetic="";
+        wd.usPhonetic="";
+        return wd;
     }
 }

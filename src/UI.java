@@ -51,49 +51,69 @@ public class UI extends JFrame{
         searchButton.setIcon(searchIcon);
         searchButton.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
 
-        //set explanationArea
+        //set explanationArea and its JScrollPane
         Area1=new JTextArea();
         Area1.setEditable(false);
         Area1.setFont(zFont);
+        JScrollPane Area1JScrollPane=new JScrollPane(Area1);
+        Area1JScrollPane.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
         Area1.setOpaque(false);
+        Area1JScrollPane.setOpaque(false);
+        Area1JScrollPane.getViewport().setOpaque(false);
+
         Area2=new JTextArea();
         Area2.setEditable(false);
         Area2.setFont(zFont);
+        JScrollPane Area2JScrollPane=new JScrollPane(Area2);
+        Area2JScrollPane.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
         Area2.setOpaque(false);
+        Area2JScrollPane.setOpaque(false);
+        Area2JScrollPane.getViewport().setOpaque(false);
+
         Area3=new JTextArea();
         Area3.setEditable(false);
         Area3.setFont(zFont);
+        JScrollPane Area3JScrollPane=new JScrollPane(Area3);
+        Area3JScrollPane.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
         Area3.setOpaque(false);
+        Area3JScrollPane.setOpaque(false);
+        Area3JScrollPane.getViewport().setOpaque(false);
 
         add(searchText);
         add(searchButton);
-        add(Area1);
-        add(Area2);
-        add(Area3);
+        add(Area1JScrollPane);
+        add(Area2JScrollPane);
+        add(Area3JScrollPane);
 
         setLayout(null);
 
         searchText.setBounds(50,20,600,50);
         searchButton.setBounds(700,20,50,50);
-        Area1.setBounds(100,200,600,80);
-        Area2.setBounds(100,300,600,80);
-        Area3.setBounds(100,400,600,80);
+        Area1JScrollPane.setBounds(50,120,600,120);
+        Area2JScrollPane.setBounds(50,270,600,120);
+        Area3JScrollPane.setBounds(50,420,600,120);
 
         setVisible(true);
         setResizable(false);
     }
 
 
-    public void setArea1(String translation) {
-        Area1.setText(t.get(0).name+":\t"+translation);
+    public void setArea1(WORD wd) {
+        Area1.setText(t.get(0).name+":\n"+wd.word+" "+wd.usPhonetic+" "+wd.ukPhonetic+"\n");
+        for(int i=0;i<wd.explains.size();++i)
+            Area1.append(wd.explains.get(i)+"\n");
     }
 
-    public void setArea2(String translation) {
-        Area2.setText(t.get(1).name+":\t"+translation);
+    public void setArea2(WORD wd) {
+        Area2.setText(t.get(1).name+":\n"+wd.word+" "+wd.usPhonetic+" "+wd.ukPhonetic+"\n");
+        for(int i=0;i<wd.explains.size();++i)
+            Area2.append(wd.explains.get(i)+"\n");
     }
 
-    public void setArea3(String translation) {
-        Area3.setText(t.get(2).name+":\t"+translation);
+    public void setArea3(WORD wd) {
+        Area3.setText(t.get(2).name+":\n"+wd.word+" "+wd.usPhonetic+" "+wd.ukPhonetic+"\n");
+        for(int i=0;i<wd.explains.size();++i)
+            Area3.append(wd.explains.get(i)+"\n");
     }
 
     public void setMessage(String message) {
