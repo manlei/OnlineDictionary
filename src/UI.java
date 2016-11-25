@@ -16,12 +16,18 @@ public class UI extends JFrame{
     protected JButton vote1;
     protected JButton vote2;
     protected JButton vote3;
-    protected ArrayList<Translator> t=new ArrayList<>(3);
+    // TODO: 2016/11/26
+    // the checkbox to be added
+    protected JCheckBox select1;
+    protected JCheckBox select2;
+    protected JCheckBox select3;
+
+    protected ArrayList<WORD> answer;
 
     public UI() {
 
         setTitle("Welcome to the dictionary");
-        setSize(800,600);
+        setSize(800,800);
         String path="icon.png";
         ImageIcon icon=new ImageIcon(path);
         this.setIconImage(icon.getImage());
@@ -89,9 +95,9 @@ public class UI extends JFrame{
 
         searchText.setBounds(50,20,600,50);
         searchButton.setBounds(700,20,50,50);
-        Area1JScrollPane.setBounds(50,120,600,120);
-        Area2JScrollPane.setBounds(50,270,600,120);
-        Area3JScrollPane.setBounds(50,420,600,120);
+        Area1JScrollPane.setBounds(50,120,600,200);
+        Area2JScrollPane.setBounds(50,340,600,200);
+        Area3JScrollPane.setBounds(50,560,600,200);
 
         setVisible(true);
         setResizable(false);
@@ -99,19 +105,19 @@ public class UI extends JFrame{
 
 
     public void setArea1(WORD wd) {
-        Area1.setText(t.get(0).name+":\n"+wd.word+" "+wd.usPhonetic+" "+wd.ukPhonetic+"\n");
+        Area1.setText(wd.translator+":\n"+wd.word+" "+wd.usPhonetic+" "+wd.ukPhonetic+"\n");
         for(int i=0;i<wd.explains.size();++i)
             Area1.append(wd.explains.get(i)+"\n");
     }
 
     public void setArea2(WORD wd) {
-        Area2.setText(t.get(1).name+":\n"+wd.word+" "+wd.usPhonetic+" "+wd.ukPhonetic+"\n");
+        Area2.setText(wd.translator+":\n"+wd.word+" "+wd.usPhonetic+" "+wd.ukPhonetic+"\n");
         for(int i=0;i<wd.explains.size();++i)
             Area2.append(wd.explains.get(i)+"\n");
     }
 
     public void setArea3(WORD wd) {
-        Area3.setText(t.get(2).name+":\n"+wd.word+" "+wd.usPhonetic+" "+wd.ukPhonetic+"\n");
+        Area3.setText(wd.translator+":\n"+wd.word+" "+wd.usPhonetic+" "+wd.ukPhonetic+"\n");
         for(int i=0;i<wd.explains.size();++i)
             Area3.append(wd.explains.get(i)+"\n");
     }

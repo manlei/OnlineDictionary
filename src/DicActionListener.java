@@ -1,15 +1,15 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Collections;
+import javax.swing.*;
+import java.awt.event.*;
 
 /**
  * Created by Eric on 2016/11/23.
  */
 public class DicActionListener extends UI {
     private String text;
-    public DicActionListener() {
+    private Client dicClient;
+    public DicActionListener( Client dicClient) {
+        this.dicClient=dicClient;
+
         //Listen key "enter"
         searchText.addKeyListener(new KeyListener() {
             @Override
@@ -43,18 +43,22 @@ public class DicActionListener extends UI {
                 }
             }
         });
+
+        //
     }
 
     public void contentUpdate() {
-        if(!t.get(0).textChecker(text)) {
-            setMessage(text+" is illeagal.");
+        if(!textChecker()) {
+            setMessage(text + " is illegal.");
             return;
         }
-        sortTranslator();
         try{
-            setArea1(t.get(0).getTranslation(text));
-            setArea2(t.get(1).getTranslation(text));
-            setArea3(t.get(2).getTranslation(text));
+            answer=dicClient.queryWord(text);
+            setArea1(answer.get(0));
+            if(answer.size()>1)
+                setArea2(answer.get(1));
+            if(answer.size()>2)
+                setArea3(answer.get(2));
         }
         catch (Exception e)
         {
@@ -62,15 +66,12 @@ public class DicActionListener extends UI {
         }
     }
 
-    public void InitializeTranslator() {
-        // TODO: 2016/11/23
-        //read the votes from the database
-        t.add(new BingTranslate(0));
-        t.add(new JinshanTranslate(0));
-        t.add(new YoudaoTranslate(0));
+    boolean textChecker() {
+        for(int i=0;i<text.length();++i) {
+            if(!Character.isLetter(text.charAt(i)))
+                return false;
+        }
+        return true;
     }
 
-    public void sortTranslator() {
-        Collections.sort(t);
-    }
 }
